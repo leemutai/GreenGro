@@ -2,14 +2,24 @@ import React from "react";
 import { useAppContext } from "../context/AppContext";
 
 const Login = () => {
-  const { setShowUserLogin } = useAppContext();
+  const { setShowUserLogin, setUser } = useAppContext();
 
   const [state, setState] = React.useState("login");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    setUser({
+      email: "test@palo.com",
+      name: "Palo",
+    });
+    setShowUserLogin(false);
+  };
   return (
     <div
+      onSubmit={onSubmitHandler}
       onClick={() => setShowUserLogin(false)}
       className="fixed top-0 left-0 bottom-0 right-0 z-30 flex items-center text-sm text-gray-600 bg-black/50   "
     >
