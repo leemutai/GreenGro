@@ -43,6 +43,8 @@ export const register = async (req, res) => {
 }
 
 
+
+
 // Login user : /api/user/login
 
 export const login = async (req, res) => {
@@ -80,4 +82,40 @@ export const login = async (req, res) => {
         console.log(error.message);
         res.json({success: false, message: error.message});
     }
+}
+
+// check auth : /api/user/is-auth
+
+export const isAuth = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const user = await User.findById(userId).select("-password")
+        return res.json({success: true, user});
+        
+    } catch (error) {
+        console.log(error.message);
+        res.json({success: false, message: error.message});
+    }
+
+}
+
+
+// Logout user : /api/user/logout
+
+export const logout = async (req, res) => {
+    try {
+        res.clearCookie('token',{
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', //csrf protection
+        });
+
+        return res.json({success: true, message:"User logged out successfully"});
+        
+    } catch (error) {
+         console.log(error.message);
+        res.json({success: false, message: error.message});
+    }
+
 }
