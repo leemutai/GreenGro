@@ -21,12 +21,13 @@ export const placeOrderCOD = async (req, res) => {
         }, 0)
 
         //add tax charges (2% of total amount)
-        amount += Math.floor(amount * 0.02);
+        //amount += Math.floor(amount * 0.02);
+        totalAmount += Math.floor(amount * 0.02);
 
         await Order.create({
             userId,
             items,
-            amount,
+            amount: totalAmount,
             address,
             paymentType: 'COD',
         });
@@ -60,7 +61,7 @@ export const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find({
             $or: [{paymentType: 'COD'}, {isPaid: true}]
-        }).populate("items.product address");
+        }).populate("items.product address").sort({createdAt: -1});
          res.json({success: true, orders});
         
     } catch (error) {
