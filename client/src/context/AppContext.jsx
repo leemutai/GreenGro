@@ -2,6 +2,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { dummyProducts } from "../assets/assets";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+
+// for sending cookies with requests
+// This is important for authentication and session management
+axios.defaults.withCredentials = true;
+
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 export const AppContext = createContext();
 
@@ -96,6 +103,7 @@ export const AppContextProvider = ({ children }) => {
     setSearchQuery,
     getCartCount,
     getCartAmount,
+    axios,
     //setProducts,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
