@@ -124,6 +124,23 @@ export const AppContextProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  // update Database cart items
+  useEffect(() => {
+    const updateCart = async () => {
+      try {
+        const { data } = await axios.post("/api/cart/update", { cartItems });
+        if (!data.success) {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+    if (user) {
+      updateCart();
+    }
+  }, [cartItems]);
+
   const value = {
     navigate,
     user,
