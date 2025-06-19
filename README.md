@@ -7,7 +7,7 @@ This is a full-stack online grocery delivery web app built with the MERN stack:
 - **Express.js** – Backend server
 - **React.js** – Frontend UI
 - **Node.js** – Runtime environment
-- **Stripe** – Online payment gateway
+- **Mpesa** – Online payment gateway
 
 ## ✨ Features
 
