@@ -22,7 +22,7 @@ export const placeOrderCOD = async (req, res) => {
 
         //add tax charges (2% of total amount)
         //amount += Math.floor(amount * 0.02);
-        totalAmount += Math.floor(amount * 0.02);
+        totalAmount += Math.floor(totalAmount  * 0.02);
 
         await Order.create({
             userId,
