@@ -23,7 +23,7 @@ await connectCloudinary();
 const allowedOrigins = ['http://localhost:5173']
 
 
-app.post('/stipe', express.raw({type: 'application/json'}),stripeWebhooks);
+app.post('/stripe', express.raw({type: 'application/json'}),stripeWebhooks);
 
 // Middleware configuration
 app.use(express.json());
