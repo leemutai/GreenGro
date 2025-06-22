@@ -8,7 +8,8 @@ import Product from "../models/Product.js";
 export const placeOrderCOD = async (req, res) => {
     try {
 
-        const { userId, items, address} = req.body;
+        const userId = req.userId;
+        const {   items, address} = req.body;
         if(!address || items.length === 0){
             return res.json({success: false, message: 'invalid data'});
         }
@@ -18,7 +19,7 @@ export const placeOrderCOD = async (req, res) => {
             const product = await Product.findById(item.product);
             return (await acc) + product.offerPrice * item.quantity;
 
-        }, 0)
+        }, 0);
 
         //add tax charges (2% of total amount)
         //amount += Math.floor(amount * 0.02);
@@ -43,7 +44,7 @@ export const placeOrderCOD = async (req, res) => {
 
 export const getUserOrders = async (req, res) => {
     try {
-        const { userId} = req.body;
+        const userId = req.userId;
         const orders = await Order.find({
             userId,
             $or: [{paymentType: 'COD'}, {isPaid: true}]
